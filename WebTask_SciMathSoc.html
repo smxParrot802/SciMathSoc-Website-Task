@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SciMathSoc Live Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121824;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar {
+            background-color: #1c2638;
+            padding: 20px;
+            border-bottom: 2px solid #2d3d5a;
+            text-align: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .navbar h3 {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #00bcd4;
+            font-weight: normal;
+        }
+
+        .atom-box {
+            display: inline-block;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .atom-core {
+            position: absolute;
+            top: 21px;
+            left: 21px;
+            width: 8px;
+            height: 8px;
+            background-color: #fbc02d;
+            border-radius: 50%;
+        }
+
+        .orbit-1 {
+            position: absolute;
+            top: 0;
+            left: 17px;
+            width: 16px;
+            height: 50px;
+            border: 1px solid #00bcd4;
+            border-radius: 50%;
+            transform: rotate(0deg);
+        }
+
+        .orbit-2 {
+            position: absolute;
+            top: 0;
+            left: 17px;
+            width: 16px;
+            height: 50px;
+            border: 1px solid #00bcd4;
+            border-radius: 50%;
+            transform: rotate(90deg);
+        }
+
+        .orbit-3 {
+            position: absolute;
+            top: 0;
+            left: 17px;
+            width: 16px;
+            height: 50px;
+            border: 1px solid #00bcd4;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        .orbit-4 {
+            position: absolute;
+            top: 0;
+            left: 17px;
+            width: 16px;
+            height: 50px;
+            border: 1px solid #00bcd4;
+            border-radius: 50%;
+            transform: rotate(-45deg);
+        }
+
+        .status-box {
+            margin-top: 15px;
+        }
+
+        .live-clock {
+            display: inline-block;
+            background-color: #121824;
+            border: 1px solid #2d3d5a;
+            color: #00bcd4;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .live-indicator {
+            display: inline-block;
+            background-color: #d32f2f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .filter-section {
+            background-color: #1c2638;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            border: 1px solid #2d3d5a;
+        }
+
+        .filter-section h4 {
+            margin: 0 0 10px 0;
+            color: #b0bec5;
+        }
+
+        .filter-buttons button {
+            background-color: #121824;
+            border: 1px solid #2d3d5a;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #00bcd4;
+            color: #121824;
+        }
+
+        .filter-buttons button.active {
+            background-color: #00bcd4;
+            color: #121824;
+            border-color: #00bcd4;
+        }
+
+        .podium-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .podium-card {
+            display: inline-block;
+            width: 30%;
+            background-color: #1c2638;
+            padding: 15px 10px;
+            border-radius: 6px;
+            border: 1px solid #2d3d5a;
+            vertical-align: top;
+            margin: 0 5px;
+            box-sizing: border-box;
+        }
+
+        .podium-card h2 {
+            margin: 0 0 5px 0;
+            font-size: 20px;
+        }
+
+        .podium-card p {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #b0bec5;
+        }
+
+        .podium-badge {
+            background-color: #2d3d5a;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .table-container {
+            background-color: #1c2638;
+            border-radius: 6px;
+            border: 1px solid #2d3d5a;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2d3d5a;
+        }
+
+        th {
+            background-color: #121824;
+            color: #b0bec5;
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 15px;
+        }
+
+        tr:hover td {
+            background-color: #243148;
+        }
+
+        .block-chip {
+            background-color: #2d3d5a;
+            color: #00bcd4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .wallet-green {
+            color: #4caf50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="atom-box">
+            <div class="atom-core"></div>
+            <div class="orbit-1"></div>
+            <div class="orbit-2"></div>
+            <div class="orbit-3"></div>
+            <div class="orbit-4"></div>
+        </div>
+        
+        <h1>SciMathSoc: "Bid for the Best"</h1>
+        <h3>Event Powered by Optiver</h3>
+        
+        <div class="status-box">
+            <div id="clock" class="live-clock">00:00:00 AM</div>
+            <div class="live-indicator">ALL OF THIS IS LIVE</div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="filter-section">
+            <h4>Location Filter:</h4>
+            <div class="filter-buttons">
+                <button class="active" onclick="filterBlock('ALL', this)">Show All</button>
+                <button onclick="filterBlock('Block A', this)">Tutorial Block A</button>
+                <button onclick="filterBlock('Block B', this)">Tutorial Block B</button>
+                <button onclick="filterBlock('Block C', this)">Tutorial Block C</button>
+            </div>
+        </div>
+
+        <div class="podium-container">
+            
+            <div class="podium-card" style="border-top: 4px solid #b0bec5;">
+                <h2 style="color: #b0bec5;">🥈 Rank 2</h2>
+                <p>Team Gamma (Block B)</p>
+                <div class="podium-badge" style="color: #ffffff;">4,200 Pts</div>
+            </div>
+
+            <div class="podium-card" style="border-top: 4px solid #fbc02d;">
+                <h2 style="color: #fbc02d;">🥇 Rank 1</h2>
+                <p>Team Alpha (Block A)</p>
+                <div class="podium-badge" style="color: #fbc02d;">5,800 Pts</div>
+            </div>
+
+            <div class="podium-card" style="border-top: 4px solid #cd7f32;">
+                <h2 style="color: #cd7f32;">🥉 Rank 3</h2>
+                <p>Team Beta (Block A)</p>
+                <div class="podium-badge" style="color: #cd7f32;">3,100 Pts</div>
+            </div>
+
+        </div>
+
+        <h2 style="margin-bottom: 15px; font-size: 22px;">Live Event Standings</h2>
+        <div class="table-container">
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Team Name</th>
+                        <th>Tutorial Block</th>
+                        <th>Questions Bought</th>
+                        <th>Points Spent</th>
+                        <th>Points Remaining</th>
+                        <th>Current Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-block="Block A">
+                        <td><strong>1</strong></td>
+                        <td><strong>Team Alpha</strong></td>
+                        <td><span class="block-chip">Block A</span></td>
+                        <td>8</td>
+                        <td>3,000 Pts</td>
+                        <td class="wallet-green">5,000 Pts</td>
+                        <td><strong>5,800</strong></td>
+                    </tr>
+                    <tr data-block="Block B">
+                        <td>2</td>
+                        <td>Team Gamma</td>
+                        <td><span class="block-chip">Block B</span></td>
+                        <td>6</td>
+                        <td>2,500 Pts</td>
+                        <td class="wallet-green">5,500 Pts</td>
+                        <td>4,200</td>
+                    </tr>
+                    <tr data-block="Block A">
+                        <td>3</td>
+                        <td>Team Beta</td>
+                        <td><span class="block-chip">Block A</span></td>
+                        <td>7</td>
+                        <td>4,200 Pts</td>
+                        <td class="wallet-green">3,800 Pts</td>
+                        <td>3,100</td>
+                    </tr>
+                    <tr data-block="Block C">
+                        <td>4</td>
+                        <td>Team Delta</td>
+                        <td><span class="block-chip">Block C</span></td>
+                        <td>4</td>
+                        <td>1,500 Pts</td>
+                        <td class="wallet-green">6,500 Pts</td>
+                        <td>2,450</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            let now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12; 
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            document.getElementById('clock').textContent = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function filterBlock(blockName, buttonClicked) {
+            let buttons = document.querySelectorAll('.filter-buttons button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonClicked.classList.add('active');
+
+            let table = document.getElementById('leaderboardTable');
+            let rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                let rowBlock = rows[i].getAttribute('data-block');
+
+                if (blockName === 'ALL' || rowBlock === blockName) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
