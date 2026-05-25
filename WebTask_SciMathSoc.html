@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SciMathSoc Leaderboard</title>
+    
+    <style>
+        
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #121824;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar {
+            background-color: #1c2638;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2d3d5a;
+        }
+
+        .top-bar h1 {
+            margin: 0;
+            font-size: 24px;
+            
+        }
+
+        .top-bar h3 {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #00bcd4;
+            font-weight: normal;
+        }
+
+        .atom-wrap {
+            display: inline-block;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .atom-wrap .core {
+            position: absolute;
+            top: 21px; left: 21px;
+            width: 8px; height: 8px;
+            background: #fbc02d;
+            border-radius: 50%;
+        }
+        .atom-wrap .ring { position: absolute; top:0; left:17px; width:16px; height:50px; border:1px solid #00bcd4; border-radius:50%; }
+        .atom-wrap .ring2 { transform: rotate(90deg); }
+        .atom-wrap .ring3 { transform: rotate(45deg); }
+        .atom-wrap .ring4 { transform: rotate(-45deg); }
+
+        .clock-area { margin-top: 15px; }
+
+        #liveclock {
+            background: #121824;
+            border: 1px solid #2d3d5a;
+            color: #00bcd4;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .live-badge {
+            display: inline-block;
+            background: #d32f2f;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+
+        .wrap {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .filters {
+            background: #1c2638;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #2d3d5a;
+            margin-bottom: 25px;
+        }
+        .filters h4 { margin: 0 0 10px; color: #b0bec5; }
+
+        .filters button {
+            background: #121824;
+            border: 1px solid #2d3d5a;
+            padding: 8px 15px;
+            font-size: 14px;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        .filters button:hover { background: #00bcd4; color: #121824; }
+        .filters button.active { background: #00bcd4; color: #121824; border-color: #00bcd4; }
+
+        .podium { text-align: center; margin-bottom: 30px; }
+
+        .pcard {
+            display: inline-block;
+            width: 30%;
+            background: #1c2638;
+            padding: 15px 10px;
+            border-radius: 6px;
+            border: 1px solid #2d3d5a;
+            vertical-align: top;
+            margin: 0 5px;
+        }
+        .pcard h2 { margin: 0 0 5px; font-size: 20px; }
+        .pcard p  { margin: 0 0 10px; font-size: 14px; color: #b0bec5; }
+        .pbadge {
+            background: #2d3d5a;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        h2.section-title { margin-bottom: 15px; font-size: 22px; }
+
+        .tbl-wrap {
+            background: #1c2638;
+            border-radius: 6px;
+            border: 1px solid #2d3d5a;
+            padding: 10px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #2d3d5a; }
+
+        th { background: #121824; color: #b0bec5; font-size: 13px; }
+        td { font-size: 15px; }
+
+        tr:hover td { background: #243148; }
+
+        .chip {
+            background: #2d3d5a;
+            color: #00bcd4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .pts-left { color: #4caf50; font-weight: bold; }
+
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="atom-wrap">
+        <div class="core"></div>
+        <div class="ring"></div>
+        <div class="ring ring2"></div>
+        <div class="ring ring3"></div>
+        <div class="ring ring4"></div>
+    </div>
+
+    <h1>SciMathSoc: "Bid for the Best"</h1>
+    <h3>Event Powered by Optiver And Da Vinci, World's leading quant firms</h3>
+
+    <div class="clock-area">
+        <span id="liveclock">00:00:00 AM</span>
+        <span class="live-badge">ALL OF THIS IS LIVE</span>
+    </div>
+</div>
+
+<div class="wrap">
+
+    <div class="filters">
+        <h4>Check Block-Wise Performance</h4>
+        <div>
+            <button class="active" onclick="filterBlock('ALL', this)">Show All</button>
+            <button onclick="filterBlock('Block A', this)">Tutorial Block A</button>
+            <button onclick="filterBlock('Block B', this)">Tutorial Block B</button>
+            <button onclick="filterBlock('Block C', this)">Tutorial Block C</button>
+        </div>
+    </div>
+
+    <div class="podium">
+
+        <div class="pcard" style="border-top: 4px solid #b0bec5;">
+            <h2 style="color:#b0bec5;">Current Rank 2</h2>
+            <p>blind bidders</p>
+            <div class="pbadge" style="color:#fff;">4200 Pts</div>
+        </div>
+
+        <div class="pcard" style="border-top: 4px solid #fbc02d;">
+            <h2 style="color:#fbc02d;">Current Rank 1</h2>
+            <p>Friends Of Jimbo</p>
+            <div class="pbadge" style="color:#fbc02d;">5000 Pts</div>
+        </div>
+
+        <div class="pcard" style="border-top: 4px solid #cd7f32;">
+            <h2 style="color:#cd7f32;">Current Rank 3</h2>
+            <p>CSE nhi mila</p>
+            <div class="pbadge" style="color:#cd7f32;">3,100 Pts</div>
+        </div>
+
+    </div>
+
+    <h2 class="section-title">Live Event Standings Of Teams</h2>
+
+    <div class="tbl-wrap">
+        <table id="lb">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team Name</th>
+                    <th>Tutorial Block</th>
+                    <th>Questions Bought</th>
+                    <th>Points Spent</th>
+                    <th>Points Remaining</th>
+                    <th>Current Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-block="Block A">
+                    <td><strong>1</strong></td>
+                    <td><strong>Friends Of Jimbo</strong></td>
+                    <td><span class="chip">Block A</span></td>
+                    <td>8</td>
+                    <td>3,000 Pts</td>
+                    <td class="pts-left">5,000 Pts</td>
+                    <td><strong>5,800</strong></td>
+                </tr>
+                <tr data-block="Block B">
+                    <td>2</td>
+                    <td>blind bidders</td>
+                    <td><span class="chip">Block B</span></td>
+                    <td>6</td>
+                    <td>2,500 Pts</td>
+                    <td class="pts-left">5,500 Pts</td>
+                    <td>4,200</td>
+                </tr>
+                <tr data-block="Block A">
+                    <td>3</td>
+                    <td>CSE nhi mila</td>
+                    <td><span class="chip">Block A</span></td>
+                    <td>7</td>
+                    <td>4,200 Pts</td>
+                    <td class="pts-left">3,800 Pts</td>
+                    <td>3,100</td>
+                </tr>
+                <tr data-block="Block C">
+                    <td>4</td>
+                    <td>CSE SDS</td>
+                    <td><span class="chip">Block C</span></td>
+                    <td>4</td>
+                    <td>1,500 Pts</td>
+                    <td class="pts-left">6,500 Pts</td>
+                    <td>2,450</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    
+    function tick() {
+        var d = new Date();
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+        var ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        
+        if(h < 10) h = '0' + h;
+        if(m < 10) m = '0' + m;
+        if(s < 10) s = '0' + s;
+        document.getElementById('liveclock').textContent = h + ':' + m + ':' + s + ' ' + ampm;
+    }
+    setInterval(tick, 1000);
+    tick();
+
+    function filterBlock(block, btn) {
+        
+        var btns = document.querySelectorAll('.filters button');
+        for(var i=0; i<btns.length; i++) btns[i].classList.remove('active');
+        btn.classList.add('active');
+
+        var rows = document.querySelectorAll('#lb tbody tr');
+        for(var i=0; i<rows.length; i++) {
+            var b = rows[i].getAttribute('data-block');
+            if(block == 'ALL' || b == block) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
